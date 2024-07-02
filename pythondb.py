@@ -81,3 +81,38 @@ if __name__ == "__main__":
         connection.close()
     else:
         print("Failed to connect to the database")
+
+
+'''Task 1.9: Comment on an alternative solution for the ITEMS table:
+-- An alternative design for the ITEMS table could involve normalizing the contact details further.
+-- For instance, instead of storing contact details directly in the ITEMS table, we could create a separate
+-- table for each contact type(e.g., EMAIL_CONTACTS, PHONE_CONTACTS) and store references to these tables.
+-- This approach would reduce redundancy and improve data integrity by ensuring each contact detail is stored
+-- in a table specific to its type. Example SQL for such a design:
+
+-- CREATE TABLE EMAIL_CONTACTS(
+    -- id SERIAL PRIMARY KEY,
+    -- email VARCHAR(100)
+    - -)
+
+--CREATE TABLE PHONE_CONTACTS(
+    -- id SERIAL PRIMARY KEY,
+    -- phone_number VARCHAR(20)
+    - -)
+
+-- CREATE TABLE ITEMS(
+    -- id SERIAL PRIMARY KEY,
+    -- contact_id INT,
+    -- contact_type_id INT,
+    -- contact_category_id INT,
+    -- email_contact_id INT,
+    -- phone_contact_id INT,
+    -- FOREIGN KEY(contact_id) REFERENCES CONTACTS(id),
+    -- FOREIGN KEY(contact_type_id) REFERENCES CONTACT_TYPES(id),
+    -- FOREIGN KEY(contact_category_id) REFERENCES CONTACT_CATEGORIES(id),
+    -- FOREIGN KEY(email_contact_id) REFERENCES EMAIL_CONTACTS(id),
+    -- FOREIGN KEY(phone_contact_id) REFERENCES PHONE_CONTACTS(id)
+    - -)
+
+-- In this alternative design, the ITEMS table contains references to the appropriate contact type tables.
+-- This allows for more detailed and structured storage of contact information '''

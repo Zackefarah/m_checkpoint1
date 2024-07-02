@@ -20,10 +20,10 @@ def list_translations(connection):
     try:
         cursor = connection.cursor()
         cursor.execute(
-            "SELECT english_word, local_translation FROM translations")
+            "SELECT id, english_word, local_translation FROM translations")
         rows = cursor.fetchall()
         for row in rows:
-            print(f"{row[0]} -> {row[1]}")
+            print(f"{row[0]}: {row[1]} -> {row[2]}")
         cursor.close()
     except Exception as error:
         print(f"Error: {error}")
@@ -53,6 +53,12 @@ def delete_translation(connection, english_word):
         print(f"Error: {error}")
 
 
+def add_word(connection):
+    english_word = input("Enter English word: ").strip()
+    local_translation = input("Enter local translation: ").strip()
+    add_translation(connection, english_word, local_translation)
+
+
 if __name__ == "__main__":
     connection = db_connection()
     if connection is not None:
@@ -63,9 +69,7 @@ if __name__ == "__main__":
             if cmd == "list":
                 list_translations(connection)
             elif cmd == "add":
-                english_word = input("Enter English word: ").strip()
-                local_translation = input("Enter local translation: ").strip()
-                add_translation(connection, english_word, local_translation)
+                add_word(connection)
             elif cmd == "delete":
                 english_word = input("Enter English word to delete: ").strip()
                 delete_translation(connection, english_word)
